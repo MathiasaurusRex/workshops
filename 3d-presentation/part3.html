@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Example 06.05 - Extrude SVG</title>
+    <script type="text/javascript" src="presentationJS/part3/three.js"></script>
+    <script type="text/javascript" src="presentationJS/part3/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="presentationJS/part3/stats.js"></script>
+    <script type="text/javascript" src="presentationJS/part3/dat.gui.js"></script>
+    <script type="text/javascript" src="presentationJS/part3/d3-threeD.js"></script>
+    <script type="text/javascript" src="presentationJS/part3/OrbitControls.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
+
+<div id="batman" style="display:none">
+    
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="200px" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
+<g>
+<path id="horizontal-h" fill="#3F94B1" d="M351.3,501c-14.4,0.9-29.7,1.5-45.3,1.8c-14.7-0.6-29.7-0.9-43.5-1.8v-54.2h88.7 C351.3,446.8,351.3,501,351.3,501z M508.6,291.7V459c0,12.9-29.1,24.5-75.3,32.4V359.6h-82v30.6h-88.7V282.8h-81.4v209.6 c-47.7-8.3-78-19.9-78-33.4V291.7c0-22.6,88.4-41,202.6-43.5C419.8,251,508.6,269.3,508.6,291.7z M433.3,282.8h-82v46.8h81.4v-46.8 H433.3z"/>
+</g>
+
+</svg>
+</div>
+
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
+
+    var orbit;
+
+    // once everything is loaded, we run our Three.js stuff.
+    $(function () {
+
+        var stats = initStats();
+
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+
+        // create a render and set the size
+        var webGLRenderer = new THREE.WebGLRenderer();
+        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = true;
+
+        var shape = createMesh(new THREE.ShapeGeometry(drawShape()));
+        // add the sphere to the scene
+        scene.add(shape);
+
+        // position and point the camera to the center of the scene
+        camera.position.x = 90;
+        camera.position.y = 90;
+        camera.position.z = 90;
+        camera.lookAt(new THREE.Vector3(60, -60, 0));
+
+        var spotLight = new THREE.DirectionalLight(0xffffff);
+        spotLight.position = new THREE.Vector3(180, 90, 70);
+        spotLight.intensity = 0.7;
+
+        spotLight.target = shape;
+
+        scene.add(spotLight);
+
+        // add the output of the renderer to the html element
+        $("#WebGL-output").append(webGLRenderer.domElement);
+
+        orbit = new THREE.OrbitControls(camera, webGLRenderer.domElement);
+
+        // call the render function
+        var step = 0;
+
+
+        // setup the control gui
+        var controls = new function () {
+
+            this.amount = 2;
+            this.bevelThickness = 2;
+            this.bevelSize = 0.5;
+            this.bevelEnabled = true;
+            this.bevelSegments = 3;
+            this.bevelEnabled = true;
+            this.curveSegments = 12;
+            this.steps = 1;
+
+            this.asGeom = function () {
+                // remove the old plane
+                scene.remove(shape);
+                // create a new one
+
+                var options = {
+                    amount: controls.amount,
+                    bevelThickness: controls.bevelThickness,
+                    bevelSize: controls.bevelSize,
+                    bevelSegments: controls.bevelSegments,
+                    bevelEnabled: controls.bevelEnabled,
+                    curveSegments: controls.curveSegments,
+                    steps: controls.steps
+                };
+
+                shape = createMesh(new THREE.ExtrudeGeometry(drawShape(), options));
+                // add it to the scene.
+                scene.add(shape);
+            };
+
+        }
+
+        var gui = new dat.GUI();
+        gui.add(controls, 'amount', 0, 20).onChange(controls.asGeom);
+        gui.add(controls, 'bevelThickness', 0, 10).onChange(controls.asGeom);
+        gui.add(controls, 'bevelSize', 0, 10).onChange(controls.asGeom);
+        gui.add(controls, 'bevelSegments', 0, 30).step(1).onChange(controls.asGeom);
+        gui.add(controls, 'bevelEnabled').onChange(controls.asGeom);
+        gui.add(controls, 'curveSegments', 1, 30).step(1).onChange(controls.asGeom);
+        gui.add(controls, 'steps', 1, 5).step(1).onChange(controls.asGeom);
+
+        controls.asGeom();
+        render();
+
+        function drawShape() {
+
+
+            var svgString = document.querySelector("#horizontal-h").getAttribute("d");
+
+            var shape = transformSVGPathExposed(svgString);
+
+            // return the shape
+            return shape;
+        }
+
+        function createMesh(geom) {
+
+            geom.applyMatrix(new THREE.Matrix4().makeTranslation(180, -180, 0));
+
+
+            // assign two materials
+            var meshMaterial = new THREE.MeshPhongMaterial({color: 0x00CCFF, shininess: 100, metal: true});
+            var mesh = new THREE.Mesh(geom, meshMaterial);
+            mesh.scale.x = 0.1;
+            mesh.scale.y = 0.1;
+            mesh.rotation.x = 2.5;
+            mesh.rotation.y = 2.5;
+            mesh.position.x = 60;
+            mesh.position.y = 45;
+            return mesh;
+        }
+
+
+        function render() {
+            stats.update();
+
+            shape.rotation.y -= 0.005;
+
+            orbit.update();
+
+
+            // render using requestAnimationFrame
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+
+        function initStats() {
+
+            var stats = new Stats();
+            stats.setMode(0); // 0: fps, 1: ms
+
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            $("#Stats-output").append(stats.domElement);
+
+            return stats;
+        }
+    });
+
+
+</script>
+</body>
+</html>
