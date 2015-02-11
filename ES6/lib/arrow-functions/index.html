@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Arrow Functions</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Arrow functions</h1>
+ <p>Arrow's (=>) are shorthand for a function and also provides some benefits.</p>
+ <button class="click-old">Click</button><span> Result: <span class='result-old'></span></span>
+ <br />
+ <br />
+ <pre class="language-javascript">
+ <code>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", function(e){
+    // this handler looses scope, loosing any context attached to it.
+    e.preventDefault();
+    $('.result').text(this.paramOne + ' ' + this.paramTwo);
+   });
+  }
+
+  var arrow = new Arrow($('.click'));
+  </code>
+ </pre>
+ <p>In this example, this.paramOne and this.paramTwo are no longer bound to the click event handler. Because of this, both variables return undefined because they are no longer defined in our scope.</p>
+ <script>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", function(e){
+    e.preventDefault();
+    $('.result-old').text(this.paramOne + ' ' + this.paramTwo);
+   });
+  }
+
+  var arrow = new Arrow($('.click-old'));
+ </script>
+ <h2>How have we fixed it?</h2>
+ <p>Prior to arrow functions, we had to do some type of context binding to get our desired results.</p>
+ <h3>Using jQuery $.proxy()</h3>
+ <button class="click-proxy">Click</button><span> Result: <span class='result-proxy'></span></span>
+ <br />
+ <br />
+ <pre class="language-javascript">
+ <code>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", $.proxy(function(e){
+    e.preventDefault();
+    $('.result-proxy').text(this.paramOne + ' ' + this.paramTwo);
+   }, this));
+  }
+
+  var arrow = new Arrow($('.click'));
+  </code>
+ </pre>
+ <script>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", $.proxy(function(e){
+    e.preventDefault();
+    $('.result-proxy').text(this.paramOne + ' ' + this.paramTwo);
+   }, this));
+  }
+
+  var arrow = new Arrow($('.click-proxy'));
+ </script>
+ 
+ <h3>Using Function.bind()</h3>
+ <button class="click-bind">Click</button><span> Result: <span class='result-bind'></span></span>
+ <br />
+ <br />
+ <pre class="language-javascript">
+ <code>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+    
+   function clickHandler(e){
+    e.preventDefault();
+    $('.result').text(this.paramOne + ' ' + this.paramTwo);
+   }
+
+   this.el.on("click", clickHandler.bind(this));
+  }
+
+  var arrow = new Arrow($('.click'));
+  </code>
+ </pre>
+ <script>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", $.proxy(function(e){
+    e.preventDefault();
+    $('.result-bind').text(this.paramOne + ' ' + this.paramTwo);
+   }, this));
+  }
+
+  var arrow = new Arrow($('.click-bind'));
+ </script>
+
+ <h3>Using Arrows</h3>
+ <button class="click-arrow">Click</button><span> Result: <span class='result-arrow'></span></span>
+ <br />
+ <br />
+ <pre class="language-javascript">
+ <code>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", e => {
+    e.preventDefault();
+    $('.result').text(this.paramOne + ' ' + this.paramTwo);
+   });
+  }
+
+  var arrowtwo = new Arrow($('.click'));
+</code>
+ </pre>
+ <script>
+  function Arrow(el){
+   this.paramOne = 1;
+   this.paramTwo = 2;
+   this.el = el;
+
+   this.el.on("click", e => {
+    // this handler looses scope, loosing the variables attached to it.
+    e.preventDefault();
+    $('.result-arrow').text(this.paramOne + ' ' + this.paramTwo);
+   });
+  }
+
+  var arrowtwo = new Arrow($('.click-arrow'));
+ </script>
+</body>
+</html>

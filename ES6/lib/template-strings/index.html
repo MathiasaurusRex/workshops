@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Template Strings</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Template Strings</h1>
+ <p>Similar to other JavaScript templating engines, JavaScript now has native templating using Template Strings.</p>
+ <pre class="language-javascript">
+  <code>
+    var listItems = [
+      {
+        "href" : "/",
+        "label" : "Home"
+      },
+      {
+        "href" : "/about",
+        "label" : "About"
+      },
+      {
+        "href" : "/work",
+        "label" : "Work"
+      }
+    ];
+
+    var menuTemplate = function(listItems){
+      let menuTemplate = `&lt;nav&gt;&lt;ul&gt;`;
+      listItems.forEach(listItem => {
+        menuTemplate += `&lt;li&gt;&lt;a href="${listItem.href}"&gt;${listItem.label}&lt;/a&gt;&lt;/li&gt;`
+      });
+      menuTemplate += `&lt;/ul&gt;&lt;/nav&gt;`;
+      return menuTemplate;
+    };
+
+    var renderedTemplate = menuTemplate(listItems);
+    // outputs &lt;nav&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="/work"&gt;Work&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;
+    console.log(renderedTemplate);
+
+  </code>
+ </pre>
+</body>
+</html>

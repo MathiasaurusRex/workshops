@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Let VS. Var</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Let vs Var</h1>
+ <p>Let is a new keywork that acts similar to var but doesn't get hoisted.</p>
+ <h2>Variable Hoisting</h2>
+ <pre class="language-javascript">
+  <code>
+    function f(){
+      console.log(alpha); // returns undefined because alpha has nothing assigned to it yet.
+      if(true){
+        var alpha = 1; // We are assigning 1 to alpha
+        console.log(alpha); // outputs 1
+      }
+      console.log(alpha); // outputs 1
+    }
+  </code>
+ </pre>
+ <h2>What's happening here?</h2>
+ <p>When running this code, the JavaScript engine first identifies all of the variables inside f(). The alpha variable is hoisted to the top of the function, allowing the first console.log to see alpha within the scope of f(). Because of this, many people write JavaScript code like:</p>
+ <pre class="language-javascript">
+  <code>
+  function f(){
+    var alpha;
+    console.log(alpha); // returns undefined because alpha has nothing assigned to it yet.
+    if(true){
+      alpha = 1; // We are assigning 1 to alpha
+      console.log(alpha); // outputs 1
+    }
+    console.log(alpha); // outputs 1
+  }
+  </code>
+ </pre>
+ <p>This code is equivalent and will output exactly the same.</p>
+ <h2>Welcome Let</h2>
+ <pre class="language-javascript">
+   <code>
+     function f(){
+      console.log(alpha); // ReferenceError: alpha is not defined
+      if(true){
+        let alpha = 1;
+        console.log(alpha); // outputs 1
+      }
+      console.log(alpha); // ReferenceError: alpha is not defined
+     }
+   </code>
+ </pre>
+ <p>Let makes sure that the variable is isolated within the block scope of the if statement. Anything trying to access the variable outside the block scope will result in an reference error.</p>
+ <h2>Const</h2>
+ <p>We now have actual constant variables.</p>
+ <pre class="language-javascript">
+  <code>
+    const firstName = "Bill";
+    console.log(firstName); // outputs "Bill"
+
+    firstName = "Kyle"; // fails silently but Safari overwrites this variable, breaking const.
+    console.log(firstName); // outputs "Bill"
+
+    var newName = firstName = "Kyle";
+    console.log(firstName); // outputs "Bill"
+    console.log(newName); // outputs "Kyle"
+
+  </code>
+ </pre>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "ES6",
+  "version": "0.0.0",
+  "homepage": "https://github.com/horizontalintegration/workshops",
+  "authors": [
+    "Mark Scripter <mscripter@horizontalintegration.com>"
+  ],
+  "description": "bower-components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "traceur": "~0.0.83",
+    "bluebird": "~2.9.8"
+  }
+}

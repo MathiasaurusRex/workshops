@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Argument Updates</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Arguments</h1>
+ <p>ES6 brings several updates to the way we can handle arguments.</p>
+ <h2>Default Parameters</h2>
+ <p>Prior to having default parameters, we had to perform shorthand operations to determine if arguments were passed and if not, assign a default value.</p>
+ <pre class="language-javascript">
+   <code>
+     function Add(one, two){
+      var first = one || 1;
+      var second = two || 2;
+      return first + second;
+     }
+
+     Add(); // returns 3
+     Add(2, 4); // returns 6
+   </code>
+ </pre>
+ <p>Or we did this</p>
+ <pre class="language-javascript">
+   <code>
+     function Add(options){
+      var opts = $.extend({
+       first : 1,
+       second : 2
+      }, options);
+      return opts.first + opts.second;
+     }
+
+     Add(); // returns 3
+     Add({
+      first : 2,
+      second: 4
+     }); // returns 6
+   </code>
+ </pre>
+ <p>Now we can do this</p>
+ <pre class="language-javascript">
+  <code>
+   function Add(first = 1, second = 2){
+    return first + second;
+   }
+
+   Add(); // returns 3
+   Add(2, 4); // returns 6
+  </code>
+ </pre>
+ <h2>Destructuring</h2>
+ <p>Destructuring provides a pattern matching mechanism to appropriately assign values to variables.</p>
+ <h3>Object Destructuring</h3>
+ <pre class="language-javascript">
+   <code>
+    function returnJSON(){
+      return {
+        "firstName": "Bill",
+        "lastName": "Sussman",
+        "age" : 33
+      }
+    }
+
+    var {firstName, lastName, age} = returnJSON();
+    console.log(firstName); // outputs "Bill"
+    console.log(lastName); // outputs "Sussman"
+    console.log(age); // outputs 33
+   </code>
+ </pre>
+ <h3>Array Destructuring</h3>
+ <pre class="language-javascript">
+   <code>
+    function returnJSON(){
+      return ["Bill", "Sussman", 33];
+    }
+
+    var [firstName, lastName, age] = returnJSON();
+    console.log(firstName); // outputs "Bill"
+    console.log(lastName); // outputs "Sussman"
+    console.log(age); // outputs 33
+   </code>
+ </pre>
+ <h2>Spread</h2>
+ <p>A Spread is an iterable object that can be used in functions, arrays and for destructuring.</p>
+ <pre class="language-javascript">
+   <code>
+    function spreadablePeople(personOne, personTwo){
+      console.log(personOne);
+      console.log(personTwo);
+    }
+
+    var bill = ["Bill", "Sussman", 33];
+    var kyle = ["Kyle", "Rudolphson", 50];
+    var people = [[...bill], [...kyle]];
+
+    spreadablePeople(...people);
+   </code>
+ </pre>
+ <pre class="language-javascript">
+   <code>
+    function getNumber(){
+      return Math.floor(Math.random() * 10);
+    }
+
+    function add(first = 1, second = 2){
+      return first + second;
+    }
+    
+    var argumentArray = [getNumber(), getNumber()];
+
+    add(...argumentArray); // outputs some integer based on Math.random();
+
+   </code>
+ </pre>
+ <h2>Rest</h2>
+ <p>Rest is similar to spread but used within the signature of a function and not an argument.</p>
+ <pre class="language-javascript">
+   <code>
+    function add(first = 0, ...last){ // ...last represents a rest
+     var num = 0;
+     if(last.length > 1){
+      num = add(...last); // ...last represents a spread
+     }else if(last.length === 1){
+      num = last[0];
+     }
+     return first + num;
+    }
+
+    console.log(add()); // outputs 0
+    console.log(add(1)); // outputs 1
+    console.log(add(1, 1)); // outputs 2
+    console.log(add(1, 2, 3)); // outputs 6
+   </code>
+ </pre>
+</body>
+</html>

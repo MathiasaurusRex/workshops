@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Classes</title>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>What do Classes help with?</h1>
+ <p>Inheritance really...</p>
+ <p>NOTE: Class support is <a href="http://kangax.github.io/compat-table/es6/#class" target="_blank">really really bad...</a> so you will want to use <a href="https://github.com/google/traceur-compiler" target="_blank">Traceur</a></p>
+ <pre class="language-javascript">
+ <code>
+  var Obj = function Obj(){
+   this.firstName = "Bill";
+   this.lastName = "Sussman";
+   this.age = 33;
+  }
+
+  Obj.prototype.getName = function getName(){
+   return this.firstName + " " + this.lastName;
+  }
+
+  Obj.prototype.getAge = function getAge(){
+   return this.age;
+  }
+
+  var newObj = new Obj();
+
+  console.log(newObj.getName()); // outputs "Bill Sussman"
+  console.log(newObj.getAge()); // outputs 33
+  </code>
+ </pre>
+ <h2>Using Class</h2>
+ <pre class="language-javascript">
+  <code>
+  class Obj{
+   constructor(){
+    this.firstName = "Bill";
+    this.lastName = "Sussman";
+    this.age = 33;
+   }
+   getAge(){
+    return this.age;
+   }
+   getName(){
+    return `${this.firstName} ${this.lastName}`;
+   }
+  }
+
+  class NewObj extends Obj{
+   constructor(){
+    super();
+   }
+  }
+
+  var newObj = new NewObj();
+  console.log(newObj.getAge()); // outputs "Bill Sussman"
+  console.log(newObj.getName()); // outputs 33
+ </code>
+ </pre>
+ <h3>Converted code using <a href="https://github.com/google/traceur-compiler" target="_blank">Traceur</a></h3>
+ <pre class="language-javascript">
+ <code>
+  var Obj = function Obj() {
+   "use strict";
+   this.firstName = "Bill";
+   this.lastName = "Sussman";
+   this.age = 33;
+ };
+ ($traceurRuntime.createClass)(Obj, {
+   getAge: function() {
+     "use strict";
+     return this.age;
+   },
+   getName: function() {
+     "use strict";
+     return (this.firstName + " " + this.lastName);
+   }
+ }, {});
+ var NewObj = function NewObj() {
+   "use strict";
+   $traceurRuntime.superConstructor($NewObj).call(this);
+ };
+ var $NewObj = NewObj;
+ ($traceurRuntime.createClass)(NewObj, {}, {}, Obj);
+ var newObj = new NewObj();
+ console.log(newObj.getAge());
+ console.log(newObj.getName());
+ </code>
+ </pre>
+ <p>That looks pretty ugly though... but it's what we got.</p>
+ <h2>What does this help with?</h2>
+ <p>Once we instantiate a new object off of Obj(), you can't really adjust the prototype. Rather, you can make a copy of Obj() and adjust the prototype of the new object created.</p>
+ <pre class="language-javascript">
+  <code>
+    var Obj = function Obj(){
+     this.firstName = "Bill";
+     this.lastName = "Sussman";
+     this.age = 33;
+    }
+
+    Obj.prototype.getName = function getName(){
+     return this.firstName + " " + this.lastName;
+    }
+
+    Obj.prototype.getAge = function getAge(){
+     return this.age;
+    }
+
+    var newObj = new Obj();
+
+    newObj.prototype.add = function add(one, two){ // prototype is undefined resulting in an error
+      return one + two;
+    }
+
+    var NewerObj = Obj;
+
+    NewerObj.prototype.add = function add(one, two){
+      return one + two;
+    }
+
+    var newerObject = new NewerObj();
+    newerObject.add(1, 2); // returns 3
+
+    // What about this
+    newObj.add(1, 2); // returns 3 as well
+  </code>
+ </pre>
+ <h3>What Happened?</h3>
+ <p>We didn't extend the prototype of Obj() or the object instantiated from it, newObj, so how did it get the add() function?</p>
+ <p>Adjusting the prototype of either object affects the others instantiated off of it.</p>
+ <pre class="language-javascript">
+   <code>
+    class Obj{
+      constructor(){
+        this.firstName = "Bill";
+        this.lastName = "Sussman";
+        this.age = 33;
+      }
+      getAge(){
+        return this.age;
+      }
+      getName(){
+        return `${this.firstName} ${this.lastName}`;
+      }
+    }
+
+    class NewObj extends Obj{
+      constructor(){
+        super();
+      }
+
+      add(one, two){
+        return one + two;
+      }
+    }
+    var obj = new Obj();
+    var newObj = new NewObj();
+    console.log(newObj.getAge()); // outputs "Bill Sussman"
+    console.log(newObj.getName()); // outputs 33
+    console.log(newObj.add(1, 2)); // outputs 3
+    console.log(obj.add(1, 2)); // Uncaught TypeError: undefined is not a function
+   </code>
+ </pre>
+ <h3>Converted code using <a href="https://github.com/google/traceur-compiler" target="_blank">Traceur</a></h3>
+ <pre class="language-javascript">
+   <code>
+    var Obj = function Obj() {
+      "use strict";
+      this.firstName = "Bill";
+      this.lastName = "Sussman";
+      this.age = 33;
+    };
+    ($traceurRuntime.createClass)(Obj, {
+      getAge: function() {
+        "use strict";
+        return this.age;
+      },
+      getName: function() {
+        "use strict";
+        return (this.firstName + " " + this.lastName);
+      }
+    }, {});
+    var NewObj = function NewObj() {
+      "use strict";
+      $traceurRuntime.superConstructor($NewObj).call(this);
+    };
+    var $NewObj = NewObj;
+    ($traceurRuntime.createClass)(NewObj, {add: function(one, two) {
+        "use strict";
+        return one + two;
+      }}, {}, Obj);
+    var obj = new Obj();
+    var newObj = new NewObj();
+    console.log(newObj.getAge()); // outputs 33
+    console.log(newObj.getName()); // outputs "Bill Sussman"
+    console.log(newObj.add(1, 2)); // outputs 3
+    console.log(obj.add(1, 2)); // Uncaught TypeError: undefined is not a function
+
+   </code>
+ </pre>
+ <p>Adjusting the child class will not affect the parent class.</p>
+</body>
+</html>

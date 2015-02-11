@@ -1,0 +1,28 @@
+{
+  "name": "ES6",
+  "version": "0.0.0",
+  "description": "ES6 examples for HI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/horizontalintegration/workshops.git"
+  },
+  "keywords": [
+    "ES6"
+  ],
+  "author": "Mark Scripter",
+  "bugs": {
+    "url": "https://github.com/horizontalintegration/workshops/issues"
+  },
+  "homepage": "https://github.com/horizontalintegration/workshops",
+  "devDependencies": {
+    "express": "^4.11.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-traceur": "0.3.0",
+    "traceur": "^0.0.84"
+  }
+}

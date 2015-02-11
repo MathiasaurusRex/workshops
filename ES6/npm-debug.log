@@ -1,0 +1,181 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'traceur' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json ES6@0.0.0 No README data
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'traceur', null ]
+7 verbose cache add name=undefined spec="traceur" args=["traceur",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'traceur',
+8 verbose parsed url   path: 'traceur',
+8 verbose parsed url   href: 'traceur' }
+9 silly lockFile c8577751-traceur traceur
+10 verbose lock traceur /Users/mscripter/.npm/c8577751-traceur.lock
+11 silly lockFile c8577751-traceur traceur
+12 silly lockFile c8577751-traceur traceur
+13 verbose addNamed [ 'traceur', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 5a549ea4-traceur traceur@
+16 verbose lock traceur@ /Users/mscripter/.npm/5a549ea4-traceur.lock
+17 silly addNameRange { name: 'traceur', range: '*', hasData: false }
+18 verbose request where is /traceur
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id c5f4e3a05add62b5
+21 verbose url raw /traceur
+22 verbose url resolving [ 'https://registry.npmjs.org/', './traceur' ]
+23 verbose url resolved https://registry.npmjs.org/traceur
+24 verbose request where is https://registry.npmjs.org/traceur
+25 info trying registry request attempt 1 at 15:35:47
+26 verbose etag "748650DEPHGOYZCK9HR5ULKLM"
+27 http GET https://registry.npmjs.org/traceur
+28 http 200 https://registry.npmjs.org/traceur
+29 silly registry.get cb [ 200,
+29 silly registry.get   { date: 'Fri, 06 Feb 2015 21:35:48 GMT',
+29 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 silly registry.get     etag: '"6E1Q6GKP0ZB1Y9XXK7LLNSVGP"',
+29 silly registry.get     'content-type': 'application/json',
+29 silly registry.get     'cache-control': 'max-age=60',
+29 silly registry.get     'content-length': '149017',
+29 silly registry.get     'accept-ranges': 'bytes',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     age: '0',
+29 silly registry.get     'x-served-by': 'cache-dfw1831-DFW',
+29 silly registry.get     'x-cache': 'HIT',
+29 silly registry.get     'x-cache-hits': '1',
+29 silly registry.get     'x-timer': 'S1423258548.766487,VS0,VE61',
+29 silly registry.get     vary: 'Accept',
+29 silly registry.get     'keep-alive': 'timeout=10, max=50',
+29 silly registry.get     connection: 'Keep-Alive' } ]
+30 silly addNameRange number 2 { name: 'traceur', range: '*', hasData: true }
+31 silly addNameRange versions [ 'traceur',
+31 silly addNameRange   [ '0.0.1',
+31 silly addNameRange     '0.0.2',
+31 silly addNameRange     '0.0.3',
+31 silly addNameRange     '0.0.4',
+31 silly addNameRange     '0.0.5',
+31 silly addNameRange     '0.0.6',
+31 silly addNameRange     '0.0.7',
+31 silly addNameRange     '0.0.8',
+31 silly addNameRange     '0.0.9',
+31 silly addNameRange     '0.0.10',
+31 silly addNameRange     '0.0.11',
+31 silly addNameRange     '0.0.12',
+31 silly addNameRange     '0.0.13',
+31 silly addNameRange     '0.0.14',
+31 silly addNameRange     '0.0.15',
+31 silly addNameRange     '0.0.16',
+31 silly addNameRange     '0.0.17',
+31 silly addNameRange     '0.0.18',
+31 silly addNameRange     '0.0.19',
+31 silly addNameRange     '0.0.20',
+31 silly addNameRange     '0.0.21',
+31 silly addNameRange     '0.0.22',
+31 silly addNameRange     '0.0.23',
+31 silly addNameRange     '0.0.24',
+31 silly addNameRange     '0.0.25',
+31 silly addNameRange     '0.0.27',
+31 silly addNameRange     '0.0.28',
+31 silly addNameRange     '0.0.29',
+31 silly addNameRange     '0.0.30',
+31 silly addNameRange     '0.0.31',
+31 silly addNameRange     '0.0.32',
+31 silly addNameRange     '0.0.33',
+31 silly addNameRange     '0.0.34',
+31 silly addNameRange     '0.0.35',
+31 silly addNameRange     '0.0.36',
+31 silly addNameRange     '0.0.37',
+31 silly addNameRange     '0.0.38',
+31 silly addNameRange     '0.0.39',
+31 silly addNameRange     '0.0.40',
+31 silly addNameRange     '0.0.41',
+31 silly addNameRange     '0.0.42',
+31 silly addNameRange     '0.0.43',
+31 silly addNameRange     '0.0.44',
+31 silly addNameRange     '0.0.45',
+31 silly addNameRange     '0.0.46',
+31 silly addNameRange     '0.0.47',
+31 silly addNameRange     '0.0.48',
+31 silly addNameRange     '0.0.49',
+31 silly addNameRange     '0.0.50',
+31 silly addNameRange     '0.0.51',
+31 silly addNameRange     '0.0.52',
+31 silly addNameRange     '0.0.53',
+31 silly addNameRange     '0.0.54',
+31 silly addNameRange     '0.0.55',
+31 silly addNameRange     '0.0.56',
+31 silly addNameRange     '0.0.57',
+31 silly addNameRange     '0.0.58',
+31 silly addNameRange     '0.0.59',
+31 silly addNameRange     '0.0.60',
+31 silly addNameRange     '0.0.61',
+31 silly addNameRange     '0.0.62',
+31 silly addNameRange     '0.0.63',
+31 silly addNameRange     '0.0.64',
+31 silly addNameRange     '0.0.65',
+31 silly addNameRange     '0.0.66',
+31 silly addNameRange     '0.0.67',
+31 silly addNameRange     '0.0.68',
+31 silly addNameRange     '0.0.69',
+31 silly addNameRange     '0.0.70',
+31 silly addNameRange     '0.0.71',
+31 silly addNameRange     '0.0.72',
+31 silly addNameRange     '0.0.73',
+31 silly addNameRange     '0.0.74',
+31 silly addNameRange     '0.0.75',
+31 silly addNameRange     '0.0.76',
+31 silly addNameRange     '0.0.77',
+31 silly addNameRange     '0.0.78',
+31 silly addNameRange     '0.0.79',
+31 silly addNameRange     '0.0.80',
+31 silly addNameRange     '0.0.81',
+31 silly addNameRange     '0.0.82',
+31 silly addNameRange     '0.0.83',
+31 silly addNameRange     '0.0.84' ] ]
+32 verbose addNamed [ 'traceur', '0.0.84' ]
+33 verbose addNamed [ '0.0.84', '0.0.84' ]
+34 silly lockFile cdd9b678-traceur-0-0-84 traceur@0.0.84
+35 verbose lock traceur@0.0.84 /Users/mscripter/.npm/cdd9b678-traceur-0-0-84.lock
+36 silly lockFile f0864990-s-org-traceur-traceur-0-0-84-tgz https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+37 verbose lock https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz /Users/mscripter/.npm/f0864990-s-org-traceur-traceur-0-0-84-tgz.lock
+38 verbose addRemoteTarball [ 'https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz',
+38 verbose addRemoteTarball   '0c570d72b6f4bec98968f1c705c0d5362470a2f4' ]
+39 info retry fetch attempt 1 at 15:35:48
+40 verbose fetch to= /var/folders/m5/m4trgm8s68ggfj4zdp4mpc28hphlb1/T/npm-11236-Y8DYbq6w/registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+41 http GET https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+42 http 200 https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+43 silly lockFile f0864990-s-org-traceur-traceur-0-0-84-tgz https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+44 silly lockFile f0864990-s-org-traceur-traceur-0-0-84-tgz https://registry.npmjs.org/traceur/-/traceur-0.0.84.tgz
+45 silly lockFile cdd9b678-traceur-0-0-84 traceur@0.0.84
+46 silly lockFile cdd9b678-traceur-0-0-84 traceur@0.0.84
+47 silly lockFile 5a549ea4-traceur traceur@
+48 silly lockFile 5a549ea4-traceur traceur@
+49 error Error: EACCES, mkdir '/Users/mscripter/.npm/traceur/0.0.84'
+49 error  { [Error: EACCES, mkdir '/Users/mscripter/.npm/traceur/0.0.84']
+49 error   errno: 3,
+49 error   code: 'EACCES',
+49 error   path: '/Users/mscripter/.npm/traceur/0.0.84',
+49 error   parent: 'ES6' }
+50 error Please try running this command again as root/Administrator.
+51 error System Darwin 14.1.0
+52 error command "node" "/usr/local/bin/npm" "install" "--save-dev" "traceur"
+53 error cwd /Users/mscripter/Documents/Development/workshops/ES6
+54 error node -v v0.10.33
+55 error npm -v 1.4.28
+56 error path /Users/mscripter/.npm/traceur/0.0.84
+57 error code EACCES
+58 error errno 3
+59 error stack Error: EACCES, mkdir '/Users/mscripter/.npm/traceur/0.0.84'
+60 verbose exit [ 3, true ]

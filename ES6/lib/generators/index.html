@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Generators</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <script src="../../bower_components/bluebird/js/browser/bluebird.min.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Generators</h1>
+ <p>Generators are a new form of a function that allows you to iterate through a function.</p>
+ <p>This example is from <a href="https://www.youtube.com/watch?v=QO07THdLWQo" target="_blank">here.</a></p>
+ <pre class="language-javascript">
+   <code>
+     var myGenerator = function*() {
+      var one = yield 1;
+      var two = yield 2;
+      var three = yield 3;
+      console.log(one, two, three); // outputs undefined undefined undefined
+
+      // NOTE: one, two, three never get assigned a value.
+     }
+
+     var myGen = new myGenerator();
+
+     console.log(myGen.next()); // outputs { value: 1, done: false }
+     console.log(myGen.next()); // outputs { value: 2, done: false }
+     console.log(myGen.next()); // outputs { value: 3, done: false }
+     console.log(myGen.next()); // outputs { value: undefined, done: true }
+     
+   </code>
+ </pre>
+ <p>Let's look at how we can assign values to the variables one, two and three.</p>
+ <pre class="language-javascript">
+   <code>
+     var myGenerator = function*() {
+      var one = yield 1;
+      var two = yield 2;
+      var three = yield 3;
+      console.log(one, two, three); // outputs 1 2 3
+
+      // NOTE: one, two, three are now assigned
+     }
+
+     var myGen = new myGenerator();
+
+     console.log(myGen.next()); // outputs { value: 1, done: false }
+     console.log(myGen.next(1)); // outputs { value: 2, done: false }
+     console.log(myGen.next(2)); // outputs { value: 3, done: false }
+     console.log(myGen.next(3)); // outputs { value: undefined, done: true }
+
+     // NOTE: This is actual log. Note the order of execution of the console.log statements 
+     // { value: 1, done: false }
+     // { value: 2, done: false }
+     // { value: 3, done: false }
+     // 1 2 3
+     // { value: undefined, done: true }
+   </code>
+ </pre>
+ <p>How is this useful? Let's look at another example that uses a Promise library to help facilitate our code.</p>
+ <pre class="language-javascript">
+   <code>
+     var myBooks;
+     var books = Promise.coroutine(function*(){
+       var firstBook = yield $.ajax('/api/book/0').then((data)=>{return data;});
+       var secondBook = yield $.ajax('/api/book/1').then((data)=>{return data;});
+       var thirdBook = yield $.ajax('/api/book/2').then((data)=>{return data;});
+       var fourthBook = yield $.ajax('/api/book/3').then((data)=>{return data;});
+       return [firstBook, secondBook, thirdBook, fourthBook];
+     });
+     
+     books().then(function(data){
+      myBooks = data;
+     });
+
+   </code>
+ </pre>
+</body>
+</html>

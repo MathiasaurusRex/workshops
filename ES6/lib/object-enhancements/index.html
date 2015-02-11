@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Object Enhancements</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+</head>
+<body>
+ <h1>Objects</h1>
+ <p>Current objects look something like this</p>
+ <pre class="language-javascript">
+ <code>
+  var _obj = {
+    firstName: "Bill",
+    lastName: "Sussman",
+    age: 25,
+    getAge : function(){
+      return this.age;
+    }
+  }
+ </code>
+ </pre>
+ <p>Now we can just do this:</p>
+ <pre class="language-javascript">
+ <code>
+   var _obj = {
+    firstName: "Bill",
+    lastName: "Sussman",
+    age: 25,
+    getAge() {
+     return this.age;
+    },
+    ["prop_" + (()=>{return 4;})()] : "prop_4"
+   }
+ </code>
+ </pre>
+<h2>... Not much of an improvement, but then there is this...</h2>
+<pre class="language-javascript">
+<code>
+  var baseObj = {
+    firstName: "Bill",
+    lastName: "Sussman",
+    age: 25,
+    getAge(){
+      return this.age;
+    },
+    ["prop_" + (()=>{return 4;})()] : "prop_4"
+  }
+
+  var extendedObj = {
+    __proto__ : baseObj,
+    getName(){
+      return `${this.firstName} ${this.lastName}`
+    }
+  }
+</code>
+</pre>
+<h2>We can also do stuff like this.</h2>
+<pre class="language-javascript">
+<code>
+  var baseObj = {
+    firstName: "Bill",
+    lastName: "Sussman",
+    age: 25,
+    getAge(){
+      return this.age;
+    }
+  }
+
+  var extendedObj = {
+    __proto__ : baseObj,
+    lastName: "Sussmano",
+    getName(){
+      return `${this.firstName} ${this.lastName}`
+    }
+  }
+
+  var siteObj = {
+    oneSection: {
+      __proto__ : baseObj
+    },
+    anotherSection: {
+      __proto__ : extendedObj,
+      age: 33
+    }
+  }
+</code>
+</pre>
+</body>
+</html>

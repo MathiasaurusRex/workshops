@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>This</title>
+ <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="../../bower_components/traceur/traceur.min.js"></script>
+ <script src="../../bower_components/prismjs/prism.js"></script>
+ <link rel="stylesheet" href="../../bower_components/prismjs/prism-tomorrow.css">
+ <style>
+  div {
+    padding: 10px 0px;
+  }
+ </style>
+</head>
+<body>
+ <h1>This... with call &amp; apply</h1>
+ <p>Even though this isn't ES6, I've included this for reference. To better understand what 'this' is, I recommend reading <a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes" target="_blank">this &amp; object prototypes</a> from <a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">You Don't Know JS</a>.</p>
+ <div>
+  <button id="GetNameCall">GetName.call()</button><span> Results: <span id="GetNameResultCall"></span></span>
+ </div>
+ <div>
+  <button id="GetNameApply">GetName.apply()</button><span> Results: <span id="GetNameResultApply"></span></span>
+ </div>
+ <div>
+   <button id="GetAgeCall">GetAge.call()</button><span> Results: <span id="GetAgeResultCall"></span></span>
+ </div>
+ <div>
+   <button id="GetAgeApply">GetAge.apply()</button><span> Results: <span id="GetAgeResultApply"></span></span>
+ </div>
+ <pre class="language-javascript">
+  <code>
+    function GetName(){
+      return this.firstName + " " + this.lastName;
+    }
+
+    function GetAge(){
+      return this.age;
+    }
+
+    var person = {
+      firstName: "Bill",
+      lastName: "Sussman",
+      age: 33
+    }
+
+    GetName.call(person); // outputs "Bill Sussman"
+    GetAge.call(person); // outputs 33
+
+    GetName.apply(person, []); // outputs "Bill Sussman"
+    GetAge.apply(person, []); // outputs 33
+
+  </code>
+ </pre>
+ <script>
+  function GetName(){
+    return this.firstName + " " + this.lastName;
+  }
+
+  function GetAge(){
+    return this.age;
+  }
+
+  var person = {
+    firstName: "Bill",
+    lastName: "Sussman",
+    age: 33
+  }
+
+  $('#GetNameCall').click(function(e){
+    e.preventDefault();
+    $('#GetNameResultCall').text(GetName.call(person));
+  });
+
+  $('#GetAgeCall').click(function(e){
+    e.preventDefault();
+    $('#GetAgeResultCall').text(GetAge.call(person));
+  });
+
+  $('#GetNameApply').click(function(e){
+    e.preventDefault();
+    $('#GetNameResultApply').text(GetName.apply(person, []));
+  });
+
+  $('#GetAgeApply').click(function(e){
+    e.preventDefault();
+    $('#GetAgeResultApply').text(GetAge.apply(person, []));
+  });
+ </script>
+</body>
+</html>
