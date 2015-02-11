@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-var pageNum;
+var bookNum;
 
-app.use('/lib', express.static(__dirname + '/lib'))
-app.use('/bower_components', express.static(__dirname + '/bower_components'))
+app.use('/lib', express.static(__dirname + '/lib'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-app.get('/api/book/:book', function (req, res, next) {
+app.get('/api/book/:book', function (req, res) {
   bookNum = req.params.book || 0;
   switch (+bookNum) {
   case 0:
